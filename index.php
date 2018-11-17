@@ -107,7 +107,7 @@
 
 
 </div>
-<div class="container-fluid mbHidden" style="background:#f2f2f2; height:80vh; color:red">
+<div class="container-fluid mbHidden" style="background:blue; height:auto; color:red"><!--background:#f2f2f2;-->
 	
 	<div class="container">
 		<div class="row">
@@ -115,7 +115,7 @@
 		</div>
 	</div>
 </div>
-<div class="container-fluid mbHidden" style="background:#000; height:10vh; color:#FFF">
+<div class="container-fluid mbHidden" style="background:#000; height:10vh; color:#FFF; display:none;">
 	
 	<div class="container">
 		<div class="row">
