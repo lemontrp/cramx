@@ -34,7 +34,6 @@
 	[class*="col-"] {
     	width: 100%;
 	}
-	.chkBxSize{width:25px; height:25px;}
 
 	.btn {width:100%; height: 75px;}
 	.mbHidden{display: none;}
@@ -65,15 +64,21 @@
 
 <script src="vocabJSfn.js?<?php echo time();?>"></script>
 
+<script>
+  $(document).ready(function() {
+    var orgH = window.innerHeight;
+	var newH = orgH -120;
+	$("#vbody").css("height", newH + "px");
+  });  
+</script>
+
 </head>
 
 <body>
 
 
 
-	
-<div class="container-fluid mbHeightFull" style="background:#000; color:#FFF" >
-	
+<div id="vheader" class="container-fluid mbHeightFull" style="height:70px; background:#000; color:#FFF;" >	
 	<div class="container">
 		<div class="row" style="display: flex; justify-content: center; align-items: center;">
 			<div class="col-lg" style="">
@@ -91,7 +96,7 @@
 				  	</div>
 
 				  	<div class="form-check mb-2 mr-sm-2">
-				    	<input class="form-check-input chkBxSize" type="checkbox" id="inlineFormCheck">
+				    	<input class="form-check-input" type="checkbox" id="inlineFormCheck">
 				    	<label class="form-check-label" for="inlineFormCheck">
 				      		Remember me
 				    	</label>
@@ -101,13 +106,9 @@
 			</div>
 		</div>
 	</div>
-	
-
-
-
-
 </div>
-<div class="container-fluid mbHidden" style="background:blue; height:auto; color:red"><!--background:#f2f2f2;-->
+
+<div id="vbody" class="container-fluid mbHidden" style="background:#f2f2f2; color:red;"><!--background:#f2f2f2;-->
 	
 	<div class="container">
 		<div class="row">
@@ -115,25 +116,15 @@
 		</div>
 	</div>
 </div>
-<div class="container-fluid mbHidden" style="background:#000; height:10vh; color:#FFF; display:none;">
+
+<div id="vfooter" class="container-fluid mbHidden" style="height:50px; background:#000; color:#FFF;">
 	
 	<div class="container">
 		<div class="row">
-			<h1>Footer</h1>	
+			Copyright©2016 VocabX™ All rights reserved.	
 		</div>
 	</div>
 </div>
-
-
-
-
-
-
-	
-	
-	
-		
-
 
 </body>
 </html>
