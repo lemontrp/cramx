@@ -29,6 +29,10 @@
 
 
 <style>
+
+.headerH{height: 70px;}
+.footerH{height: 50px;}
+
 @media only screen and (max-width: 768px) {
 	/* For mobile phones: */
 	[class*="col-"] {
@@ -51,6 +55,8 @@
 	}
 }
 
+
+
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -66,9 +72,8 @@
 
 <script>
   $(document).ready(function() {
-    var orgH = window.innerHeight;
-	var newH = orgH -120;
-	$("#vbody").css("height", newH + "px");
+    
+	calVbodyH();
   });  
 </script>
 
@@ -78,7 +83,7 @@
 
 
 
-<div id="vheader" class="container-fluid mbHeightFull" style="height:70px; background:#000; color:#FFF;" >	
+<div style="background:#000; color:#FFF;" id="vheader" class="container-fluid headerH mbHeightFull">	
 	<div class="container">
 		<div class="row" style="display: flex; justify-content: center; align-items: center;">
 			<div class="col-lg" style="">
@@ -121,7 +126,7 @@
 	
 	<div class="container">
 		<div class="row">
-			Copyright©2016 VocabX™ All rights reserved.	
+			Copyright©2018 VocabX™ All rights reserved.	
 		</div>
 	</div>
 </div>

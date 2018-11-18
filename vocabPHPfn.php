@@ -100,8 +100,8 @@
 }?>
 
 <?php function get_client_ip(){			//取得用戶IP位址
-		$ipaddress = "127.0.0.1";//'';
-		/*if (getenv('HTTP_CLIENT_IP'))
+		//$ipaddress = "127.0.0.1";//'';
+		if (getenv('HTTP_CLIENT_IP'))
 			$ipaddress = getenv('HTTP_CLIENT_IP');
 		else if(getenv('HTTP_X_FORWARDED_FOR'))
 			$ipaddress = getenv('HTTP_X_FORWARDED_FOR');
@@ -114,11 +114,11 @@
 		else if(getenv('REMOTE_ADDR'))
 			$ipaddress = getenv('REMOTE_ADDR');
 		else
-			$ipaddress = 'UNKNOWN';*/
+			$ipaddress = '127.0.0.1';//'UNKNOWN';
 		return $ipaddress;
 }?>
 
-<?php function getUsrInfoByTokenOrSession(){				
+<?php function getUsrInfoByTokenOrSession($fnPar){				
 		session_start();
 
 		require_once("ref/vocabConn.php");//PDO connect
@@ -127,7 +127,14 @@
 		$dbh	= 	new Database();		
 
 		if( isset($_SESSION["vjUsrId"]) && $_SESSION["vjUsrId"] !="" ){
-			$sql = "SELECT `id`, `nickname`, `mem_level`, `orgList`, `lang`, `reg_time`, `vocInfo`, `realName`, `ttlWords`, `hourDiff` from vocabje1_admin.userInfo001 WHERE `id` = :id";
+			
+			if( $fnPar == 0 ){
+				$sql = "SELECT * from vocabje1_admin.userInfo001 WHERE `id` = :id";
+			}else{				
+				$sql = "SELECT `id`, `nickname`, `mem_level`, `orgList`, `lang`, `reg_time`, `vocInfo`, `realName`, `ttlWords`, `hourDiff` from vocabje1_admin.userInfo001 WHERE `id` = :id";
+				//$sql = "SELECT `id`, `nickname`, `mem_level`, `orgList`, `lang`, `reg_time`, `vocInfo`, `realName`, `ttlWords`, `hourDiff` from vocabje1_admin.userInfo001 WHERE `id` = :id";		
+			}			
+			
 			$dbh->query($sql);
 			$dbh->bind(':id', $_SESSION["vjUsrId"] );
 			$dbh->execute();			
@@ -173,7 +180,7 @@
 }?>
 
 <?php function getUsrId(){			//清除cookie
-		$infoAry = getUsrInfoByTokenOrSession();
+		$infoAry = getUsrInfoByTokenOrSession(1);
 
 		if( isset($infoAry['id']) && $infoAry['id'] != ""){
 			return $infoAry['id'];
@@ -181,6 +188,8 @@
 			return false;
 		}
 }?>
+
+
 
 
 

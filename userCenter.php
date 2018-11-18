@@ -22,6 +22,8 @@
 		$dbh->bind(':ipAddr'		,	$ipAddr);
 		$dbh->bind(':id'			, 	$id, PDO::PARAM_INT);
 		$dbh->execute();
+
+		$usrInfoAry = getUsrInfoByTokenOrSession(0);
 	}
 ?>
 <html lang="zh-Hant">
@@ -46,7 +48,9 @@
 
 <script>
 
-/*$(document).ready(function(){	});*/
+$(document).ready(function(){	
+	calVbodyH();
+});
 /*document.ready().then(function(){ });*/
 
 
@@ -76,69 +80,67 @@
 <body>
 
 <div class="container-fluid mbHeightFull" style="background:#000; color:#FFF;">
-	<!--
-	<div class="row" style="display: flex; justify-content: center; align-items: center;"></div>
-
-	-->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">			
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<a class="navbar-brand" href="#">VocabX</a>
-		
-		<div class="collapse navbar-collapse" id="navbarToggler">
-			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-		    	<li class="nav-item active">
-		        	<a class="btn btnC1 btnBg1" href="#tgt0" role="button" aria-expanded="false" aria-controls="tgt0">Button1 <span class="sr-only">(current)</span></a>
-		      	</li>
-		      	<li class="nav-item">
-		        	<a class="btn btnC1 btnBg1 btnPadTop" href="#tgt1">Button2</a>
-		      	</li>
-		      	<li class="nav-item">
-		        	<a class="btn btnC1 btnBg1 btnPadTop" href="#tgt2">Button3</a>
-		      	</li>
-		      	<li class="nav-item">
-		        	<a class="btn btnC1 btnBg1 btnPadTop" onclick="test();">TEST</a>
-		      	</li>
-		      	<li class="nav-item">
-		        	<a class="btn btnC1 btnBg2 btnPadTop" onclick="logout();">logout</a>
-		      	</li>
-		    </ul>				
-		</div>
-
-
-		<div class="collapse" id="tgt0" style="height:30vh; background: #112233; color:#FFF; border: solid 1px red;">
-			<h1>Cool-tgt0</h1>
-		</div>
-
-		<div class="collapse" id="tgt1" style="color:#FFF; border: solid 1px red;">
-			<h1>Cool-tgt1</h1>
-		</div>
-
-		<div class="collapse" id="tgt2" style="color:#FFF; border: solid 1px red;">
-			<h1>Cool-tgt2</h1>
-		</div>
-
-
-	</nav>
-
 	
-
-
+	<div class="row" style="display: flex; justify-content: center; align-items: center;">		
+		<span class="navbar-brand h1">VocabX</span>
+		<button type="button" class="btn btn-dark">Button1</button>
+		<button type="button" class="btn btn-dark" data-toggle="collapse" data-target="#myvoc">我的單字</button>
+		<button type="button" class="btn btn-dark">Button3</button>
+		<button type="button" class="btn btn-dark" onclick="test();">TEST</button>
+		<button type="button" class="btn btn-danger" onclick="logout();">logout</button>
+		<span><?php 
+			if( !$uId ){
+				echo $usrInfoAry["nickname"].", uId: ".$uId;
+			}
+		?></span> 	
+	</div>	
 </div>
-<div class="container-fluid mbHidden" style="background:#f2f2f2; height:80vh; color:red">
+<div id="vbody" class="container-fluid mbHidden" style="background:#f2f2f2; color:red">
 	
 	<div class="container">
 		<div class="row">
-			<h1>User Center</h1>	
+			<h1>User Center</h1>
+
+			<div id="myvoc" class="collapse">
+				<table class="table table-hover table-dark">
+					<thead>
+						<tr>
+						  <th scope="col">#</th>
+						  <th scope="col">First</th>
+						  <th scope="col">Last</th>
+						  <th scope="col">Handle</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+						  <th scope="row">1</th>
+						  <td>Mark</td>
+						  <td>Otto</td>
+						  <td>@mdo</td>
+						</tr>
+						<tr>
+						  <th scope="row">2</th>
+						  <td>Jacob</td>
+						  <td>Thornton</td>
+						  <td>@fat</td>
+						</tr>
+						<tr>
+						  <th scope="row">3</th>
+						  <td colspan="2">Larry the Bird</td>
+						  <td>@twitter</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
 		</div>
 	</div>
 </div>
-<div class="container-fluid mbHidden" style="background:#000; height:10vh; color:#FFF">
+<div class="container-fluid mbHidden" style="height:70px; background:#000; color:#FFF">
 	
 	<div class="container">
 		<div class="row">
-			<h1>Footer</h1>	
+			Copyright©2018 VocabX™ All rights reserved.	
 		</div>
 	</div>
 </div>
@@ -146,4 +148,3 @@
 
 </body>
 </html>
-

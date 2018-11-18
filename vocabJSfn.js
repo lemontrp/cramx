@@ -62,12 +62,15 @@ function logout(){
 	callPhpFn('logout', '', fnIfSuccess);
 }
 
-
-
-
-
+function calVbodyH(){
+	//alert("call");
+	var orgH = window.innerHeight;
+	var newH = orgH -120;
+	$("#vbody").css("height", newH + "px");
+}
 
 function test(){
+	alert("test");
 	/*var fnIfSuccess = function (data) {
 		alert(data);		
 	}
