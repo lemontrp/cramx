@@ -131,8 +131,7 @@
 			if( $fnPar == 0 ){
 				$sql = "SELECT * from vocabje1_admin.userInfo001 WHERE `id` = :id";
 			}else{				
-				$sql = "SELECT `id`, `nickname`, `mem_level`, `orgList`, `lang`, `reg_time`, `vocInfo`, `realName`, `ttlWords`, `hourDiff` from vocabje1_admin.userInfo001 WHERE `id` = :id";
-				//$sql = "SELECT `id`, `nickname`, `mem_level`, `orgList`, `lang`, `reg_time`, `vocInfo`, `realName`, `ttlWords`, `hourDiff` from vocabje1_admin.userInfo001 WHERE `id` = :id";		
+				$sql = "SELECT `id`, `nickname`, `mem_level`, `orgList`, `lang`, `reg_time`, `vocInfo`, `realName`, `ttlWords`, `hourDiff` from vocabje1_admin.userInfo001 WHERE `id` = :id";	
 			}			
 			
 			$dbh->query($sql);
@@ -168,11 +167,11 @@
 			killCookies();
 			return false;
 		}
-				
+		ackCookies();				
 }?>
 
 <?php function killCookies(){			//清除cookie
-		$cookiesName =  array("vjtoken", "vjNickName");
+		$cookiesName =  array("vjtoken", "vjNickName", "vjAckCookies");
 
 		for($i=0; $i < count($cookiesName); $i++){
 			setcookie($cookiesName[$i], "", time()-3600, "/", NULL , TRUE, TRUE);
@@ -190,9 +189,80 @@
 }?>
 
 
+<?php function getUsrVocAryByTokenOrSession($fnPar){
+		//$fnPar=["全拿=0","筆數","位移"]				
+		session_start();
+		require_once("ref/vocabConn2.php");//PDO connect
+	
+		
+
+		if( isset($_SESSION["vjUsrId"]) && $_SESSION["vjUsrId"] !="" ){			
+			$vjUsrId = getUsrId();
+echo "id: ".$vjUsrId;
+			if( $fnPar[0] == 0 ){				
+				$db    = "vocabje1_VocLog001";
+				$table = $vjUsrId."_voc";
+				$sql   = "SELECT * FROM ".$db.".".$table." WHERE `hide` = 0";		
+				$rlt   = mysql_query($sql);
+				$ttlVocNums = mysql_num_rows($rlt);
+			}			
+echo "ttlVocNums: ".$ttlVocNums;
+			
+
+			//$sql = "SELECT * from :vjUsrId WHERE `hide` = :hide LIMIT :ofst, :lmt";
+			//$sql = "SELECT * from :vjUsrId WHERE `hide` = :hide";
+			/*
+			$dbh->query($sql);
+			$dbh->bind(':vjUsrId', "vocabje1_VocLog001.".$_SESSION['vjUsrId']."_voc");
+			$dbh->bind(':hide', 0 );
+			//$dbh->bind(':ofst', 0 );
+			//$dbh->bind(':lmt' , 20 );
+			$dbh->execute();			
+			$numOfRlt =	$dbh->rowCount();//回傳query結果筆數		
+			$row = $dbh->resultset();//resultset();//搜尋結果陣列用欄位名取出	
+			
+			if( $numOfRlt ){						
+				return $row;
+			}else{			
+				return false;
+			}	
+			*/			
+		}	
+
+		
+}?>
+
+<?php function ackCookies(){				
+	setcookie("vjAckCookies"	, 1	, time() + (86400 * 30)	, "/", NULL , NULL, TRUE);
+}?>
 
 
-
+<?php function mysetting(){
+	echo '<div id="mysetting">
+				<table class="table table-hover table-dark">
+				<thead>
+					<tr>
+					  <th scope="col">#</th>
+					  <th scope="col">Nickname</th>
+					  <th scope="col">Email</th>
+					  <th scope="col" class="mbHidden">Voc/page</th>
+					  <th scope="col" class="mbHidden">Total Vocs</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+					  <th scope="row">1</th>
+					  <td>Rex</td>
+					  <td>rextrpmeng@gmail.com</td>
+					  <td class="mbHidden">20</td>
+					  <td class="mbHidden">1404</td>
+					</tr>						
+				</tbody>
+				</table>
+				<button type="button" class="close" aria-label="Close" onclick="hideDiv(0)" style="position: relative; right:10px; top:-110px; color:#FFF;"><span aria-hidden="true">&times;</span>
+				</button>
+			</div>';	
+}?>
 
 
 

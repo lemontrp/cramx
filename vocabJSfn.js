@@ -69,6 +69,50 @@ function calVbodyH(){
 	$("#vbody").css("height", newH + "px");
 }
 
+function myvoc(fnPar){//fetchAll, ofst, limit
+	//var fnPar = [fetchAll, ofst, limit];
+	alert("myvoc" + fnPar[2]);
+	var fnIfSuccess = function (data) {
+		alert(data);		
+	}
+	callPhpFn('getUsrVocAryByTokenOrSession', fnPar, fnIfSuccess);
+}
+
+function ackCookies(){
+	var fnIfSuccess = function (data) {}
+	callPhpFn('ackCookies', '', fnIfSuccess);
+}
+
+function mysetting(fnPar){
+	//fnPar = [tgtId, notUseYet]
+	//alert("mysetting" + tgtId);
+	var fnIfSuccess = function (data) {
+		//alert(data);
+		$("#" + fnPar[0]).html(data);
+		scrollToDiv("mysetting");
+	}
+	callPhpFn('mysetting', '', fnIfSuccess);
+}
+
+function hideDiv(tgtDivNum){	
+	var tgtDivAry = ["mysetting"];
+	//alert("tgt: " + tgtDivNum + ", id: " + tgtDivAry[tgtDivNum]);
+	$("#" + tgtDivAry[tgtDivNum]).addClass("hidden");
+	scrollToTop();
+}
+
+function scrollToTop(){
+	$("html, body").animate({ scrollTop: 0 }, "slow");
+}
+
+function scrollToDiv(tgtDivId){
+	$("html,body").animate({scrollTop: $("#" + tgtDivId).offset().top}, "slow");
+}
+
+
+
+
+
 function test(){
 	alert("test");
 	/*var fnIfSuccess = function (data) {

@@ -71,7 +71,13 @@ $(document).ready(function(){
 
 	.mbHidden{display: none;}
 	.mbHeightFull{height: 100vh;}
+	.mbWidthFull{width:100%;}
 }
+
+.hidden {display: none;}
+.bdrG {border: solid 1px green;}
+.bdrR {border: solid 1px red;}
+
 </style>
 
 
@@ -84,61 +90,42 @@ $(document).ready(function(){
 	<div class="row" style="display: flex; justify-content: center; align-items: center;">		
 		<span class="navbar-brand h1">VocabX</span>
 		<button type="button" class="btn btn-dark">Button1</button>
-		<button type="button" class="btn btn-dark" data-toggle="collapse" data-target="#myvoc">我的單字</button>
+		<button type="button" class="btn btn-dark" onclick="">我的單字</button>
 		<button type="button" class="btn btn-dark">Button3</button>
 		<button type="button" class="btn btn-dark" onclick="test();">TEST</button>
 		<button type="button" class="btn btn-danger" onclick="logout();">logout</button>
-		<span><?php 
-			if( !$uId ){
-				echo $usrInfoAry["nickname"].", uId: ".$uId;
+		<button type="button" href="#mysetting" class="btn btn-info rounded" style="color:#FFF; font-size: 16px;" onclick="mysetting(['vUsrCtrTgt',0]);"><?php 
+			if( $uId ){
+				echo " ".$usrInfoAry["nickname"];
 			}
-		?></span> 	
+		?></button>
+		<span style="margin-left:10px; color:#FFF; font-size: 16px;">
+			<?php 
+				if( $uId ){
+					echo "uId: ".$uId;
+				}
+			?>
+		</span> 	
 	</div>	
 </div>
-<div id="vbody" class="container-fluid mbHidden" style="background:#f2f2f2; color:red">
-	
-	<div class="container">
-		<div class="row">
-			<h1>User Center</h1>
-
-			<div id="myvoc" class="collapse">
-				<table class="table table-hover table-dark">
-					<thead>
-						<tr>
-						  <th scope="col">#</th>
-						  <th scope="col">First</th>
-						  <th scope="col">Last</th>
-						  <th scope="col">Handle</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-						  <th scope="row">1</th>
-						  <td>Mark</td>
-						  <td>Otto</td>
-						  <td>@mdo</td>
-						</tr>
-						<tr>
-						  <th scope="row">2</th>
-						  <td>Jacob</td>
-						  <td>Thornton</td>
-						  <td>@fat</td>
-						</tr>
-						<tr>
-						  <th scope="row">3</th>
-						  <td colspan="2">Larry the Bird</td>
-						  <td>@twitter</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-
-		</div>
+<div id="vbody" class="container-fluid" style="background:#f2f2f2;">
+	<!--mbHidden bdrR-->
+	<div id="vUsrCtrTgt" class="">		
 	</div>
 </div>
+
+<div class="<?php 
+	if( isset($_COOKIE['vjAckCookies']) && $_COOKIE['vjAckCookies'] == 1 ){
+		echo 'hidden';}?> alert alert-warning alert-dismissible fade show" role="alert" style="width:100vw;">
+	By using our site, you acknowledge that you have read and understand our Cookie Policy, Privacy Policy, and our Terms of Service.
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true" onclick="ackCookies();">&times;</span>
+	</button>
+</div>
+
 <div class="container-fluid mbHidden" style="height:70px; background:#000; color:#FFF">
 	
 	<div class="container">
+		
 		<div class="row">
 			Copyright©2018 VocabX™ All rights reserved.	
 		</div>
